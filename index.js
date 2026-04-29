@@ -1,4 +1,5 @@
 import express from 'express';
+import userRouter from './src/routes/user.route.js';
 
 
 const app = express();
@@ -6,7 +7,14 @@ const app = express();
 
 app.use(  express.json()  ); //this parse to JSON
 
+app.get( "/", (req, res) => {
+    res.send("Home Page in GET Method Express1");
+});
 
+
+app.use("/user", userRouter);
+
+/*
 app.get( "/", (req, res) => {
     res.send("Home Page in GET Method Express1");
     res.send("Home Page in GET Method Express2");
@@ -24,9 +32,14 @@ app.get( "/about", (req, res) => {
 app.get( "/json", (req, res) => {  
     res.status(400).json({name: "Konsam", roll: 12});
 });
+*/
+
+// 200 = OK , 201 = created, 400 = Bad Request, 401 = authentication error, 403 = authorization error   404 = Page not found
+// 500 = Internal Server Error, 503 = Service Unavailable
+
 
 app.use((req, res) => {
-    res.send("The page is not found Express");
+    res.status(404).send("The page is not found Express");
 });
 
 
