@@ -1,49 +1,38 @@
 import express from 'express';
-import userRouter from './src/routes/user.route.js';
+import mongoose from 'mongoose';
+import config from './src/config/config.js';
 
+import foodRoutes from './src/routes/v1/food.routes.js';
+import sellerRoutes from './src/routes/v1/seller.routes.js';
 
 const app = express();
 
+// Middleware
+app.use(express.json());
 
-app.use(  express.json()  ); //this parse to JSON
+// DB Connection
+mongoose.connect(config.mongoose.url)
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => {
+    console.error('❌ DB Error:', err);
+    process.exit(1);
+  });
 
-app.get( "/", (req, res) => {
-    res.send("Home Page in GET Method Express1");
+// Routes
+app.use('/api/foods', foodRoutes);
+app.use('/api/sellers', sellerRoutes);
+
+// Health check
+app.get('/api', (req, res) => {
+  res.send('API Running 🚀');
 });
 
-
-app.use("/user", userRouter);
-
-/*
-app.get( "/", (req, res) => {
-    res.send("Home Page in GET Method Express1");
-    res.send("Home Page in GET Method Express2");
-});
-
-app.post( "/", (req, res) => {
-    res.send("Home Page in POST Method Express");
-});
-
-app.get( "/about", (req, res) => {
-    res.status(201);
-    res.send("This is about page Express");
-});
-
-app.get( "/json", (req, res) => {  
-    res.status(400).json({name: "Konsam", roll: 12});
-});
-*/
-
-// 200 = OK , 201 = created, 400 = Bad Request, 401 = authentication error, 403 = authorization error   404 = Page not found
-// 500 = Internal Server Error, 503 = Service Unavailable
-
-
+// 404
 app.use((req, res) => {
-    res.status(404).send("The page is not found Express");
+  res.status(404).json({ message: 'Route Not Found' });
 });
 
-
-
-app.listen(3000, () => {
-    console.log('Server is started, click on http://localhost:3000');
-} );
+//server starting
+app.listen(config.port, () => {
+  console.log(`Server running on port ${config.port}`);
+});
