@@ -7,6 +7,6 @@ export const getAllUser =  (req, res) => {
 export const getProfile = (req, res) => {
     res.json({
         name: "Konsam",
-        isAdmin: true
+        isAdmin: false
     });
 };
