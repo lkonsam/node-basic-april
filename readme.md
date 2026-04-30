@@ -1,0 +1,14 @@
+<!-- Installation -->
+1. Install  which are required in production also
+npm install express, mongoose, dotenv
+npm install fs path csv-parser
+
+2. install which are required only at the time of development
+npm install --save-dev nodemon
+
+
+3. env
+NODE_ENV = 'development'
+PORT = 3000
+
+MONGODB_URL = mongodb://127.0.0.1:27017/basic-nodejs
