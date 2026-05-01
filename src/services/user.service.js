@@ -2,6 +2,7 @@
 import User from '../models/user.model.js';
 import config from '../config/config.js';
 import bcrypt from 'bcrypt';
+import ApiError from '../utils/apiError.util.js';
 
 export const createUser = async (body) => {
 
@@ -9,18 +10,10 @@ export const createUser = async (body) => {
 
     const existing = await User.findOne({ email });
     if (existing) {
-        throw new Error({ message: 'Email already exists' });
+        throw new ApiError(400, "Invalid email or password");
     }
 
-    console.log(config.bcrypt_salt);
     const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt));
-    console.log(hashedPassword);
-    console.log({
-        name,
-        email,
-        password: hashedPassword,
-        isAdmin: isAdmin || false
-    });
     const user = await User.create({
         name,
         email,
