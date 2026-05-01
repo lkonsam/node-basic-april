@@ -4,6 +4,7 @@ import config from './src/config/config.js';
 
 import foodRoutes from './src/routes/v1/food.routes.js';
 import sellerRoutes from './src/routes/v1/seller.routes.js';
+import userRoutes from './src/routes/v1/user.route.js';
 
 const app = express();
 
@@ -21,6 +22,7 @@ mongoose.connect(config.mongoose.url)
 // Routes
 app.use('/api/foods', foodRoutes);
 app.use('/api/sellers', sellerRoutes);
+app.use('/api/users', userRoutes);
 
 // Health check
 app.get('/api', (req, res) => {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUser, getProfile } from '../../controllers/user.controller.js';
+import { createUser, getAllUser, getProfile } from '../../controllers/user.controller.js';
 
 const userRouter = express.Router();
 
@@ -8,16 +8,12 @@ const userRouter = express.Router();
 // } );
 
 
-// userRouter.get("/profile", (req, res) => {
-//     res.json({
-//         name: "Konsam",
-//         isAdmin: true
-//     });
-// } );
-
-userRouter.get("/", getAllUser );
+userRouter.post("/", createUser);
 
 
-userRouter.get("/profile",  getProfile );
+userRouter.get("/", getAllUser);
+
+
+userRouter.get("/profile", getProfile);
 
 export default userRouter;

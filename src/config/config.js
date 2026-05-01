@@ -1,3 +1,4 @@
+// config/config.js
 import dotenv from 'dotenv';
 
 // Load environment variables from .env (only works locally)
@@ -8,7 +9,7 @@ if (!process.env.MONGODB_URL) {
   process.exit(1); // Stop app if URL is missing
 }
 
-export default  {
+export default {
   env: process.env.NODE_ENV || "development",
   port: process.env.PORT || 8082,
   mongoose: {
@@ -19,5 +20,7 @@ export default  {
       useUnifiedTopology: true,
     },
   },
+  jwt_secret: process.env.JWT_SECRET || 'dev_secret',
+  bcrypt_salt: process.env.BCRYPT_SALT || 10
 };
 
