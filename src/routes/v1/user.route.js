@@ -1,5 +1,8 @@
 import express from 'express';
-import { createUser, getAllUser, getProfile } from '../../controllers/user.controller.js';
+import { createUser, getAllUser, getProfile, updateUser } from '../../controllers/user.controller.js';
+import { validate } from '../../middlewares/validation.middleware.js';
+import { registerSchema, updateUserSchema } from '../../validations/user.validation.js';
+import { auth } from '../../middlewares/auth.middleware.js';
 
 const userRouter = express.Router();
 
@@ -8,12 +11,15 @@ const userRouter = express.Router();
 // } );
 
 
-userRouter.post("/", createUser);
-
+userRouter.post("/", validate(registerSchema), createUser);
 
 userRouter.get("/", getAllUser);
 
 
-userRouter.get("/profile", getProfile);
+userRouter.get("/profile/:id", getProfile);
+userRouter.put("/profile/:id", validate(updateUserSchema), updateUser);
+
+
+
 
 export default userRouter;

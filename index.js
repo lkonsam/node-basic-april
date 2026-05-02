@@ -26,12 +26,28 @@ app.use('/api/users', userRoutes);
 
 // Health check
 app.get('/api', (req, res) => {
-  res.send('API Running 🚀');
+  res.json({
+    status: 'OK',
+    message: 'API Running 🚀',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: config.env,
+    version: '1.0.0'
+  });
 });
 
 // 404
 app.use((req, res) => {
   res.status(404).json({ message: 'Route Not Found' });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).json({
+    success: false,
+    message: message || 'Internal Server Error'
+  });
 });
 
 //server starting

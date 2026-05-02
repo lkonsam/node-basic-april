@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-
+// Automatically remove password from JSON responses
+userSchema.methods.toJSON = function () {
+  const userObject = this.toObject();
+  delete userObject.password;
+  return userObject;
+};
 
 export default mongoose.model('User', userSchema);

@@ -1,3 +1,5 @@
+// utils/apiError.util.js
+
 export default class ApiError extends Error {
     constructor(statusCode, message, isOperational = true, stack = "") {
         super(message);

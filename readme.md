@@ -13,3 +13,13 @@
    PORT = 3000
 
 MONGODB_URL = mongodb://127.0.0.1:27017/basic-nodejs
+
+. = one character
+.\* = zero or more characters
+.+ = one or more characters
+^ = start of string
+$ = end of string
+[] = character class
+() = grouping
+[^] = negation
+{} = quantifier
