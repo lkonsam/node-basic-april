@@ -23,6 +23,15 @@ export const createFood = catchAsync(async (req, res) => {
   });
 });
 
+
+export const getAllIndianFood = catchAsync(async (req, res) => {
+  const result = await foodService.getAllIndianFood();
+  res.json({
+    success: true,
+    data: result
+  });
+});
+
 export const searchFood = catchAsync(async (req, res) => {
   if (!req.query.q) {
     throw new ApiError(400, 'Search query is required');

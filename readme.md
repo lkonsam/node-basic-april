@@ -23,3 +23,4 @@ $ = end of string
 () = grouping
 [^] = negation
 {} = quantifier
+? = optional
