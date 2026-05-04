@@ -51,6 +51,20 @@ export const getUserById = async (userId) => {
     };
 };
 
+export const getUserByEmail = async (email) => {
+    const user = await User.findOne({ email });
+    if (!user) {
+        return {
+            success: false,
+            data: null
+        };
+    }
+    return {
+        success: true,
+        data: user
+    };
+};
+
 export const updateUser = async (userId, updateData) => {
     // const user = await User.findByIdAndUpdate(userId, updateData, { new: true }).select('-password');
     // if (!user) {

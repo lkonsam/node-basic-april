@@ -75,18 +75,18 @@ export const loadIndianFoodFromCSV = async () => {
 };
 
 export const getAllIndianFood = async () => {
-  //  return await IndianFood.find({}).populate('sellers');
+  return await IndianFood.find({}).populate('sellers');
   // Using $lookup aggregation (alternative to populate)
-  return await IndianFood.aggregate([
-    {
-      $lookup: {
-        from: 'sellers',           // Collection name (usually plural, lowercase)
-        localField: 'sellers',     // Field in IndianFood collection
-        foreignField: '_id',       // Field in sellers collection
-        as: 'sellers'              // Output array field name
-      }
-    }
-  ]);
+  // return await IndianFood.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: 'sellers',           // Collection name (usually plural, lowercase)
+  //       localField: 'sellers',     // Field in IndianFood collection
+  //       foreignField: '_id',       // Field in sellers collection
+  //       as: 'sellers'              // Output array field name
+  //     }
+  //   }
+  // ]);
 }
 
 export const searchFood = async (query) => {
