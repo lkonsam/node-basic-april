@@ -90,29 +90,29 @@ export const getAllIndianFood = async () => {
 }
 
 export const searchFood = async (query) => {
-  // return await IndianFood.find({
-  //   ingredients: {
-  //     $regex: query,
-  //     $options: 'i' // case-insensitive
-  //   }
-  // }).populate('sellers');
-  // Using $lookup aggregation with search filter
-  return await IndianFood.aggregate([
-    {
-      $match: {
-        ingredients: {
-          $regex: query,
-          $options: 'i' // case-insensitive
-        }
-      }
-    },
-    {
-      $lookup: {
-        from: 'sellers',           // Collection name
-        localField: 'sellers',     // Field in IndianFood collection
-        foreignField: '_id',       // Field in sellers collection
-        as: 'sellers'              // Output array field name
-      }
+  return await IndianFood.find({
+    ingredients: {
+      $regex: query,
+      $options: 'i' // case-insensitive
     }
-  ]);
+  }).populate('sellers');
+  // Using $lookup aggregation with search filter
+  // return await IndianFood.aggregate([
+  //   {
+  //     $match: {
+  //       ingredients: {
+  //         $regex: query,
+  //         $options: 'i' // case-insensitive
+  //       }
+  //     }
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: 'sellers',           // Collection name
+  //       localField: 'sellers',     // Field in IndianFood collection
+  //       foreignField: '_id',       // Field in sellers collection
+  //       as: 'sellers'              // Output array field name
+  //     }
+  //   }
+  // ]);
 };

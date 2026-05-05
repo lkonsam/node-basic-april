@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt';
 import ApiError from '../utils/apiError.util.js';
 
 export const createUser = async (body) => {
+
+    console.log(body);
     const { name, email, password, isAdmin } = body;
 
     const existing = await User.findOne({ email });
@@ -19,25 +21,26 @@ export const createUser = async (body) => {
         password: hashedPassword,
         isAdmin: isAdmin || false
     });
-
-    return {
-        success: true,
-        data: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin
-        }
-    };
+    return user;
+    // return {
+    //     success: true,
+    //     data: {
+    //         id: user._id,
+    //         name: user.name,
+    //         email: user.email,
+    //         isAdmin: user.isAdmin
+    //     }
+    // };
 };
 
 export const getAllUsers = async () => {
-    const users = await User.find().select('-password');
-    return {
-        success: true,
-        data: users,
-        count: users.length
-    };
+    return await User.find().select('-password');
+    // const usersWithCount = await User.find().select('-password');
+    // return {
+    //     success: true,
+    //     data: users,
+    //     count: users.length
+    // };
 };
 
 export const getUserById = async (userId) => {
